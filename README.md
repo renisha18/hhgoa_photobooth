@@ -11,12 +11,3 @@ npm run dev
 
 Open `http://localhost:3000`.
 
-## Deploy to Vercel
-
-1. Upload this folder to a GitHub repository.
-2. Open `https://vercel.com/new`.
-3. Import the repository.
-4. Keep the detected framework as **Next.js**.
-5. Click **Deploy**.
-
-No environment variables, database, or server-side storage are required. Photos remain in the user's browser.
