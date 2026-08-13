@@ -46,8 +46,8 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/Sunrise.png",
+    shortcut: "//Sunrise.png",
   },
 };
 
