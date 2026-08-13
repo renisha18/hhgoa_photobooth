@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/Sunrise.png",
-    shortcut: "//Sunrise.png",
+    shortcut: "/Sunrise.png",
   },
 };
 
