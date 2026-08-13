@@ -234,6 +234,23 @@ h1 em{color:#fee101!important;text-shadow:5px 5px 0 #ff0080}
   padding-top:40px!important;
 }
 
+/* Decorative fill for the dead space beside the panel on wide desktop
+   viewports — ambient only, sits behind every panel/card via negative
+   z-index so it never competes with or sits under real content. Hidden
+   everywhere by default; only shown in the desktop block below. */
+.builder-bg{
+  display:none;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-1;
+  opacity:.12;
+  pointer-events:none;
+  user-select:none;
+}
+
 /* The card is 4:5, so on desktop its size is bounded by viewport HEIGHT, not
    by the column width. 170px covers the head, action row, status line and the
    sticky offset. The vh line is a fallback for browsers without dvh. */
@@ -289,6 +306,15 @@ canvas{border-radius:14px;box-shadow:var(--hh-shadow-lg)}
    provably untouched by everything in here.
    ============================================================ */
 @media(min-width:801px){
+
+  /* --- 0. widen the panel column and fill what's left of the gap --- */
+  /* Was minmax(300px,340px), which left a wide dead strip beside the panel
+     on anything wider than a laptop. 43% keeps the ratio in the 40/60–45/55
+     band the fields still read comfortably at, while shrinking the strip
+     the ambient background below has to cover. */
+  .builder{grid-template-columns:minmax(340px,43%) minmax(0,1fr)}
+  .builder{position:relative}
+  .builder-bg{display:block}
 
   /* --- 1. tighten first, so the scroll below is rarely needed --- */
   .form-panel{--pane-pad:24px}

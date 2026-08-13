@@ -279,11 +279,30 @@ ${SITE_URL}
     }
   };
 
-  // Text-only by design: x.com/intent/post has no image parameter, and the
-  // Web Share file path proved unreliable. Runs synchronously so the click's
-  // user activation is still live when window.open fires.
-  const share = () => {
+  // x.com/intent/post has no image parameter, so on browsers that support
+  // sharing files (mostly mobile) we try the native share sheet first, with
+  // the card PNG attached. This is strictly additive: any lack of support,
+  // any thrown error, and any user cancellation (AbortError) all fall through
+  // to the exact same text-only x.com/intent/post flow that already works
+  // everywhere, so that flow can never regress because of this addition.
+  const share = async () => {
     if (!ready) { setMessage("Add your photo, name, and role first."); return; }
+
+    if (typeof navigator !== "undefined" && navigator.share && navigator.canShare) {
+      try {
+        const blob = await renderBlob();
+        const file = blob ? new File([blob], cardFileName(), { type: "image/png" }) : null;
+        if (file && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], text: shareText() });
+          setMessage("Shared! Pick X in the share sheet to post your card.");
+          return;
+        }
+      } catch {
+        // Falls through to the text-only flow below — including when the
+        // user simply cancelled the share sheet (AbortError).
+      }
+    }
+
     window.open(`https://x.com/intent/post?text=${encodeURIComponent(shareText())}`, "_blank", "noopener,noreferrer");
     setMessage("Your post is ready on X. Download the card to attach it yourself.");
   };
@@ -292,6 +311,7 @@ ${SITE_URL}
     <header className="topbar"><a className="brand" href="#top" aria-label="HH Goa home"><span>HH</span> GOA <b>2026</b></a><span className="status"><i /> BUILDER PASS STUDIO</span></header>
     <section className="hero" id="top"><div className="eyebrow">OCTOBER 28–31 • GOA, INDIA</div><h1>CREATE YOUR<br /><em>GOA MOMENT</em></h1><p>Create the pass that says you came to Goa to ship—not spectate. No login, no upload to a server, no waiting.</p><div className="hero-chips"><span>⚡ INSTANT PREVIEW</span><span>↗ SOCIAL READY</span><span>◉ PRIVATE BY DESIGN</span></div><a className="jump" href="#builder">MAKE MY PASS <span>↓</span></a></section>
     <section className="builder" id="builder">
+      <img className="builder-bg" src="/sunrise-bg.webp" alt="" aria-hidden="true" />
       <div className="panel form-panel">
         <div className="pane pane-identity">
           <div className="pane-head"><span className="pane-num">01</span><div><b>Identity</b><small>Who&rsquo;s on the pass.</small></div></div>
