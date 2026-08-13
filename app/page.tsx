@@ -163,7 +163,7 @@ export default function Home() {
     const displayName = (name || "YOUR NAME").toUpperCase(), fitted = displayName.length > 19 ? `${displayName.slice(0, 18)}…` : displayName;
     ctx.fillText(fitted, 86, 1007); ctx.font = font("700 30px"); ctx.fillText((role || "YOUR STACK / ROLE").toUpperCase().slice(0, 38), 88, 1060);
     ctx.fillStyle = "#063c29"; roundRect(ctx, 86, 1112, 720, 105, 28); ctx.fill(); ctx.fillStyle = "#fff9df"; ctx.font = font("800 30px"); ctx.fillText(title.toUpperCase(), 120, 1177);
-    ctx.fillStyle = palette.ink; ctx.font = font("700 18px"); ctx.fillText("AUG 28–31  •  GOA, INDIA", 88, 1257); ctx.textAlign = "right"; ctx.font = font("900 30px"); ctx.fillText("#FRAMEINGOA", 994, 1259); ctx.textAlign = "left";
+    ctx.fillStyle = palette.ink; ctx.font = font("700 18px"); ctx.fillText("OCT 28–31  •  GOA, INDIA", 88, 1257); ctx.textAlign = "right"; ctx.font = font("900 30px"); ctx.fillText("#FRAMEINGOA", 994, 1259); ctx.textAlign = "left";
   }, [cardFont, name, offset.x, offset.y, palette, passId, photo, role, rotation, title, zoom]);
 
   useEffect(() => { draw(); }, [draw]);
@@ -308,8 +308,9 @@ ${SITE_URL}
   };
 
   return <main>
-    <header className="topbar"><a className="brand" href="#top" aria-label="HH Goa home"><span>HH</span> GOA <b>2026</b></a><span className="status"><i /> BUILDER PASS STUDIO</span></header>
-    <section className="hero" id="top"><div className="eyebrow">OCTOBER 28–31 • GOA, INDIA</div><h1>CREATE YOUR<br /><em>GOA MOMENT</em></h1><p>Create the pass that says you came to Goa to ship—not spectate. No login, no upload to a server, no waiting.</p><div className="hero-chips"><span>⚡ INSTANT PREVIEW</span><span>↗ SOCIAL READY</span><span>◉ PRIVATE BY DESIGN</span></div><a className="jump" href="#builder">MAKE MY PASS <span>↓</span></a></section>
+    <header className="topbar"><a className="brand" href="#top" aria-label="HH Goa home"><span>HH</span> GOA <b>2026</b></a><span className="status"><i /> Make your pass now</span></header>
+    <section className="hero" id="top"><div className="eyebrow">OCTOBER 28–31 • GOA, INDIA</div><h1>CREATE YOUR<br /><em>GOA MOMENT</em></h1><p>Make your pass, add your photo,
+pick your builder class, and take it with you.</p><div className="hero-chips"><span>SUN OUT</span><span>CODE ON</span><span>GOA MODE</span></div><a className="jump" href="#builder">MAKE MY PASS <span>↓</span></a></section>
     <section className="builder" id="builder">
       <img className="builder-bg" src="/sunrise-bg.webp" alt="" aria-hidden="true" />
       <div className="panel form-panel">
@@ -347,7 +348,7 @@ ${SITE_URL}
         </div>
       </div>
       <div className="preview-wrap">
-        <div className="preview-head"><span>LIVE PREVIEW</span><span>{ready ? "READY TO SHIP" : "ADD YOUR DETAILS"}</span></div>
+        <div className="preview-head"><span>Preview</span><span>{ready ? "READY TO SHIP" : "ADD YOUR DETAILS"}</span></div>
         <div className="canvas-stage">
           <canvas ref={canvasRef} width={CARD_W} height={CARD_H} aria-label="Live preview of your HH Goa Builder ID" />
           {photo && <div className="photo-grab" role="presentation" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} />}
@@ -356,6 +357,6 @@ ${SITE_URL}
         <p className="message" aria-live="polite">{message || "1080 × 1350 px • Optimized for social"}</p>
       </div>
     </section>
-    <footer><span>HH GOA 2026</span><p>Built in your browser. Your photo never leaves your device.</p><b>#FRAMEINGOA</b></footer>
+    <footer><span>HH GOA 2026</span><p>BUILT IN YOUR BROWSER. YOUR PHOTO STAYS WITH YOU.</p><b>#FRAMEINGOA</b></footer>
   </main>;
 }
